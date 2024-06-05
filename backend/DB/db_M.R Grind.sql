@@ -1,0 +1,59 @@
+CREATE TABLE day (
+    id SERIAL PRIMARY KEY,
+    day_number INT NOT NULL, -- Dagnummer i träningsprogrammet
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE warmup (
+    id SERIAL PRIMARY KEY,
+    day_id INT REFERENCES day(id) ON DELETE CASCADE,
+    exercises TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE strength (
+    id SERIAL PRIMARY KEY,
+    day_id INT REFERENCES day(id) ON DELETE CASCADE,
+    exercises TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE workout_cardio (
+    id SERIAL PRIMARY KEY,
+    day_id INT REFERENCES day(id) ON DELETE CASCADE,
+    exercises TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE accessory (
+    id SERIAL PRIMARY KEY,
+    day_id INT REFERENCES day(id) ON DELETE CASCADE,
+    exercises TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE bonus (
+    id SERIAL PRIMARY KEY,
+    day_id INT REFERENCES day(id) ON DELETE CASCADE,
+    exercises TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert day numbers 1-420
+DO $$
+BEGIN
+    FOR i IN 1..420 LOOP
+        INSERT INTO day (day_number) VALUES (i);
+    END LOOP;
+END $$;
