@@ -1,10 +1,12 @@
 import React , { useState, useEffect } from 'react'
 import config from "../config"
 import { DayWorkout } from '../type';
+import './assets/app.css';
 
 function App() {
   const [inputValue, setInputValue] = useState<string>("");
   const [WorkoutData, setWorkoutData] = useState<DayWorkout>();
+  const [loading , setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -16,11 +18,15 @@ function App() {
     }
 
     try {
+      setLoading(true);
       const response = await fetch(`${config.apiUrl}day/${inputValue}`)
       const data = await response.json()
       if (data.length > 0) {
         console.log(data[0]);
-        setWorkoutData(data[0]);
+        setTimeout(() => {
+          setLoading(false);
+          setWorkoutData(data[0])
+        }, 2000);
       } else {
         console.error('No data received from API');
       }
@@ -31,7 +37,6 @@ function App() {
 
   return (
     <React.Fragment>
-      <h1>M.R GRIND</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Day:
@@ -40,34 +45,30 @@ function App() {
         <input type="submit" value="Submit" />
       </form>
       {WorkoutData && (
-        <div>
-          <h3>Warmup:
+        <div className='selectedDayWorkout'>
+          <h3>Warmup:</h3>
             {WorkoutData.warmup.map((exercise: string, id: number) => (
-              <div key={id}>{exercise}</div>
+              <p key={id}>{exercise}</p>
             ))}
-          </h3>
-          <h3>Strength:
+          <h3>Strength:</h3>
             {WorkoutData.strength.map((exercise: string, index: number) => (
-              <div key={index}>{exercise}</div>
+              <p key={index}>{exercise}</p>
             ))}
-          </h3>
-          <h3>Cardio:
+          <h3>Cardio:</h3>
             {WorkoutData.workout_cardio.map((exercise: string, index: number) => (
-              <div key={index}>{exercise}</div>
+              <p key={index}>{exercise}</p>
             ))}
-          </h3>
-          <h3>Accessory:
+          <h3>Accessory:</h3>
             {WorkoutData.accessory.map((exercise: string, index: number) => (
-              <div key={index}>{exercise}</div>
+              <p key={index}>{exercise}</p>
             ))}
-          </h3>
-          <h3>Bonus:
+          <h3>Bonus:</h3>
             {WorkoutData.bonus.map((exercise: string, index: number) => (
-              <div key={index}>{exercise}</div>
+              <p key={index}>{exercise}</p>
             ))}
-          </h3>
         </div>
       )}
+        {loading && <h2>Loading...</h2>}
     </React.Fragment>
   )
 }
