@@ -1,0 +1,33 @@
+nav {
+  z-index: 100000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0 0 10px 10px;
+  min-width: 100%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  margin-bottom: 200px;
+}
+
+.navbarHeadTitle {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+}
+
+.navbarHeadLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.dropdown-button {
+  background-color: #607D8B;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+  outline: none;
+  border: 2px solid #5A6E7F;
+}
+
+.dropdown-button:hover {
+  background-color: #78909C;
+}

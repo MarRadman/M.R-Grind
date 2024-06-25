@@ -1,7 +1,8 @@
 import React , { useState, useEffect } from 'react'
-import config from "../config"
-import { DayWorkout } from '../type';
-import './assets/app.css';
+import config from "../../config"
+import { DayWorkout } from '../../type';
+import '../assets/appview.css';
+import Spinner from 'react-bootstrap/Spinner';
 
 function App() {
   const [inputValue, setInputValue] = useState<string>("");
@@ -68,7 +69,9 @@ function App() {
             ))}
         </div>
       )}
-        {loading && <h2>Loading...</h2>}
+        {loading && <Spinner animation="border" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>}
     </React.Fragment>
   )
 }
